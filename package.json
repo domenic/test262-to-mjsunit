@@ -1,0 +1,26 @@
+{
+  "name": "test262-to-mjsunit",
+  "description": "Converts test262 tests to mjsunit tests",
+  "keywords": [
+    "test262",
+    "mjsunit",
+    "ecmascript",
+    "testing"
+  ],
+  "version": "1.0.0-pre",
+  "author": "Domenic Denicola <d@domenic.me> (https://domenic.me/)",
+  "license": "WTFPL",
+  "repository": "domenic/test262-to-mjsunit",
+  "main": "lib/test262-to-mjsunit.js",
+  "files": [
+    "lib/"
+  ],
+  "scripts": {
+    "test": "mocha",
+    "lint": "jshint lib && jscs lib"
+  },
+  "devDependencies": {
+    "jscs": "^1.8.1",
+    "jshint": "^2.5.10"
+  }
+}
