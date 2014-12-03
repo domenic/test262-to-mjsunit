@@ -14,13 +14,13 @@ var usage = packageJson.description + "\n\n" + packageJson.name +
 var argv = require("yargs")
     .usage(usage, {
         flags: {
-            description: "any V8 flags the test should run under",
+            description: "Any V8 flags the test should run under",
             type: "string",
             alias: "f",
             requiresArg: true
         },
-        failHard: {
-            description: "whether to fail immediately if tests can't be converted",
+        "fail-hard": {
+            description: "Whether to fail immediately if tests can't be converted",
             type: "boolean",
             alias: "h"
         }
