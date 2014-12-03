@@ -11,15 +11,24 @@
   "author": "Domenic Denicola <d@domenic.me> (https://domenic.me/)",
   "license": "WTFPL",
   "repository": "domenic/test262-to-mjsunit",
-  "main": "lib/test262-to-mjsunit.js",
+  "main": "lib/single-test.js",
+  "bin": "bin/test262-to-mjsunit.js",
   "files": [
+    "bin/",
     "lib/"
   ],
   "scripts": {
-    "test": "mocha",
+    "test": "baseline-tester . --cases=test/cases --input=test262.js --output=mjsunit.js",
     "lint": "jshint lib && jscs lib"
   },
+  "dependencies": {
+    "q": "^1.1.2",
+    "recast": "^0.9.8",
+    "test262-parser": "^2.0.1",
+    "yargs": "^1.3.3"
+  },
   "devDependencies": {
+    "baseline-tester": "^1.0.0",
     "jscs": "^1.8.1",
     "jshint": "^2.5.10"
   }
