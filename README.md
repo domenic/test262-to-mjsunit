@@ -9,6 +9,85 @@ But what if you've already written a bunch of test262 tests? Or what if you want
 Pass the tests you'd like to convert to the CLI utility. The resulting mjsunit files will be written to standard out.
 
 ```
-cd Array.prototype.includes
-test262-to-mjsunit test/*.js > ../v8/test/mjsunit/array-includes.js
+$ cd Array.prototype.includes
+$ test262-to-mjsunit test/*.js > ../v8/test/mjsunit/array-includes.js
 ```
+
+### Fail-Hard
+
+By default, if test262-to-mjsunit can't convert something, it will output a comment block with an error:
+
+```js
+// !!! Test failed to convert:
+// Cannot convert negative tests.
+// !!!
+```
+
+If you'd rather have it fail, pass the `--fail-hard` option.
+
+### Flags
+
+If you're testing a feature that needs a given V8 flag to run, use the `--flags` option to make the converter output the appropriate comment:
+
+```
+$ test262-to-mjsunit --flags="--harmony-array-includes" test/*.js > ../v8/test/mjsunit/array-includes.js
+```
+
+## Conversion Details
+
+### Per-Test Changes
+
+The process of converting to mjsunit consists of these steps:
+
+First, test262-to-mjsunit removes the copyright header and YAML frontmatter. It reuses the `description` key from the frontmatter to build a header comment for the test.
+
+Then, it wraps the test body in an IIFE.
+
+Next, it performs a series of substitutions on the test body (done at the abstract syntax-tree level, so it should be fairly robust):
+
+<table>
+    <thead>
+        <tr>
+            <th>test262 construct</th>
+            <th>mjsunit construct</th>
+        </tr>
+    </thead>
+    <tr>
+        <td>assert(value, "message")</td>
+        <td>assertTrue(value)</td>
+    </tr>
+    <tr>
+        <td>assert.sameValue(value, true, "message")</td>
+        <td>assertTrue(value)</td>
+    </tr>
+    <tr>
+        <td>assert.sameValue(value, false, "message")</td>
+        <td>assertFalse(value)</td>
+    </tr>
+    <tr>
+        <td>assert.sameValue(value, <var>any other literal</var>, "message")</td>
+        <td>assertEquals(<var>any other literal</var>, value)</td>
+    </tr>
+    <tr>
+        <td>$ERROR("message")</td>
+        <td>assertUnreachable("message")</td>
+    </tr>
+</table>
+
+Finally, it reformats the test to be two-space indents, double quotes, and whatever else [Recast](https://github.com/benjamn/recast) does with its default pretty-printer.
+
+### Unsupported features
+
+Although there are presumably many features of test262 tests that this converter doesn't yet support, two are caught explicitly as early errors: negative tests and tests that include other files. Both of these are detected via the YAML frontmatter.
+
+If either of these features is used in a test, the resulting output will be a three-line comment with an appropriate error message. For example:
+
+```js
+// !!! Test failed to convert:
+// Cannot convert tests with includes.
+// !!!
+```
+
+### Aggregation
+
+Each test is processed separately according to the above process. Then, they are stitched together with double-newlines between them. The appropriate V8 copyright header is added to the top of the output, and if specified, the appropriate V8 flags comment is added below that.
