@@ -18,7 +18,7 @@
     "lib/"
   ],
   "scripts": {
-    "test": "baseline-tester . --cases=test/cases --input=test262.js --output=mjsunit.js",
+    "test": "node test/runner.js",
     "lint": "jshint lib && jscs lib"
   },
   "dependencies": {
@@ -28,7 +28,7 @@
     "yargs": "^1.3.3"
   },
   "devDependencies": {
-    "baseline-tester": "^1.0.0",
+    "baseline-tester": "^1.1.0",
     "jscs": "^1.8.1",
     "jshint": "^2.5.10"
   }
