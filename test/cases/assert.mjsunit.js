@@ -1,5 +1,6 @@
 //
-// Array.prototype.includes sees a new element added by a getter that is hit during iteration
+// Array.prototype.includes sees a new element added by a getter that is hit
+// during iteration
 //
 (function() {
   var arrayLike = {

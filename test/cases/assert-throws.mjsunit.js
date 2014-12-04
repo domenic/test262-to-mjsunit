@@ -1,5 +1,6 @@
 //
-// Array.prototype.includes should terminate if ToLength ends up being called on a symbol length
+// Array.prototype.includes should terminate if ToLength ends up being called on
+// a symbol length
 //
 (function() {
   var fromIndexTrap = {

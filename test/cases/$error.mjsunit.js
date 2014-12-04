@@ -1,5 +1,6 @@
 //
-// Array.prototype.includes stops once it hits the length of an array-like, even if there are more after
+// Array.prototype.includes stops once it hits the length of an array-like, even
+// if there are more after
 //
 (function() {
   var arrayLike = {
