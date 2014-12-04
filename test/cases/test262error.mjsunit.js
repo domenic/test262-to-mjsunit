@@ -1,7 +1,5 @@
-//
 // Array.prototype.includes should terminate if getting an index throws an
 // exception
-//
 (function() {
   var trappedZero = {
     length: 2,

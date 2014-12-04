@@ -1,7 +1,5 @@
-//
 // Array.prototype.includes should use a negative value as the offset from the
 // end of the array to compute fromIndex
-//
 (function() {
   assertTrue([12, 13].includes(13, -1));
   assertFalse([12, 13].includes(12, -1));
