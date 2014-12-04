@@ -69,6 +69,10 @@ Next, it performs a series of substitutions on the test body (done at the abstra
         <td>assertEquals(<var>any other literal</var>, value)</td>
     </tr>
     <tr>
+        <td>assert.throws(ErrorConstructor, functionToRun)</td>
+        <td>assertThrows(functionToRun, ErrorConstructor)</td>
+    </tr>
+    <tr>
         <td>$ERROR("message")</td>
         <td>assertUnreachable("message")</td>
     </tr>
