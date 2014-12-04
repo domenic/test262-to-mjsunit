@@ -43,6 +43,8 @@ First, test262-to-mjsunit removes the copyright header and YAML frontmatter. It 
 
 Then, it wraps the test body in an IIFE.
 
+If the test has the `onlyStrict` flag set, it prepends `"use strict";` to the test body (inside the IIFE).
+
 Next, it performs a series of substitutions on the test body (done at the abstract syntax-tree level, so it should be fairly robust):
 
 <table>
