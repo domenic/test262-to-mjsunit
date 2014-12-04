@@ -76,6 +76,10 @@ Next, it performs a series of substitutions on the test body (done at the abstra
         <td>$ERROR("message")</td>
         <td>assertUnreachable("message")</td>
     </tr>
+    <tr>
+        <td>Test262Error</td>
+        <td>MjsUnitAssertionError</td>
+    </tr>
 </table>
 
 Finally, it reformats the test to be two-space indents, double quotes, and whatever else [Recast](https://github.com/benjamn/recast) does with its default pretty-printer.
@@ -91,6 +95,8 @@ If either of these features is used in a test, the resulting output will be a th
 // Cannot convert tests with includes.
 // !!!
 ```
+
+(However, there is one exception to the no-includes rule: since `Test262Error` occurences are converted into `MjsUnitAssertionError`, a single include is allowed as long as it is `Test262Error.js`.)
 
 ### Aggregation
 
