@@ -45,6 +45,8 @@ Then, it wraps the test body in an IIFE.
 
 If the test has the `onlyStrict` flag set, it prepends `"use strict";` to the test body (inside the IIFE).
 
+If the test includes `Test262Error.js`, it prepends a quick `function Test262Error() {}`. (This ensures that any `assert.throws` that are converted to `assertThrows` work correctly.)
+
 Next, it performs a series of substitutions on the test body (done at the abstract syntax-tree level, so it should be fairly robust):
 
 <table>
@@ -79,8 +81,8 @@ Next, it performs a series of substitutions on the test body (done at the abstra
         <td>assertUnreachable("message")</td>
     </tr>
     <tr>
-        <td>Test262Error</td>
-        <td>MjsUnitAssertionError</td>
+        <td>new Test262Error("message")</td>
+        <td>new Test262Error()</td>
     </tr>
 </table>
 
@@ -98,7 +100,7 @@ If either of these features is used in a test, the resulting output will be a th
 // !!!
 ```
 
-(However, there is one exception to the no-includes rule: since `Test262Error` occurences are converted into `MjsUnitAssertionError`, a single include is allowed as long as it is `Test262Error.js`.)
+(However, there is one exception to the no-includes rule: `Test262Error.js`, as noted above.)
 
 ### Aggregation
 

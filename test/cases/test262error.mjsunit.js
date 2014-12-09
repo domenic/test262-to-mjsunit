@@ -1,11 +1,13 @@
 // Array.prototype.includes should terminate if getting an index throws an
 // exception
 (function() {
+  function Test262Error() {}
+
   var trappedZero = {
     length: 2,
 
     get 0() {
-      throw new MjsUnitAssertionError("This error should be re-thrown");
+      throw new Test262Error();
     },
 
     get 1() {
@@ -15,5 +17,5 @@
 
   assertThrows(function() {
     Array.prototype.includes.call(trappedZero, "a");
-  }, MjsUnitAssertionError);
+  }, Test262Error);
 })();
