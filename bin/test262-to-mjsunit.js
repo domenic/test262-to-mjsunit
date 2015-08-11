@@ -23,6 +23,11 @@ var argv = require("yargs")
             description: "Whether to fail immediately if tests can't be converted",
             type: "boolean",
             alias: "h"
+        },
+        "ignore-includes": {
+            description: "Whether to ignore includes, instead of failing conversion on them",
+            type: "boolean",
+            alias: "i"
         }
     })
     .require(1, "No test files supplied to convert")
@@ -36,6 +41,6 @@ q.all(argv._.map(function (filePath) {
     });
 }))
 .then(function (allTests) {
-    console.log(multipleTests(allTests, { flags: argv.flags, failHard: argv.failHard }));
+    console.log(multipleTests(allTests, argv));
 })
 .done();

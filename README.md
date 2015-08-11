@@ -102,6 +102,8 @@ If either of these features is used in a test, the resulting output will be a th
 
 (However, there is one exception to the no-includes rule: `Test262Error.js`, as noted above.)
 
+You can bypass the check for includes via the `--ignore-includes` option. Presumably in this case you're planning to supply the relevant includes by manually editing the output.
+
 ### Aggregation
 
 Each test is processed separately according to the above process. Then, they are stitched together with double-newlines between them. The appropriate V8 copyright header is added to the top of the output, and if specified, the appropriate V8 flags comment is added below that.
