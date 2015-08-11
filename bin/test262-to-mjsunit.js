@@ -31,9 +31,11 @@ var argv = require("yargs")
     .argv;
 
 q.all(argv._.map(function (filePath) {
-    return readFile(filePath, { encoding: "utf-8" });
+    return readFile(filePath, { encoding: "utf-8" }).then(function (contents) {
+        return { path: filePath, contents: contents };
+    });
 }))
-.then(function (allTestContents) {
-    console.log(multipleTests(allTestContents, { flags: argv.flags, failHard: argv.failHard }));
+.then(function (allTests) {
+    console.log(multipleTests(allTests, { flags: argv.flags, failHard: argv.failHard }));
 })
 .done();
